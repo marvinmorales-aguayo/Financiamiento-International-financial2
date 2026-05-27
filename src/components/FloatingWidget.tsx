@@ -7,7 +7,11 @@ import React, { useState } from 'react';
 import { Phone, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
-export default function FloatingWidget() {
+interface FloatingWidgetProps {
+  onNavigateToForm?: () => void;
+}
+
+export default function FloatingWidget({ onNavigateToForm }: FloatingWidgetProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [nombre, setNombre] = useState('');
   const [telefono, setTelefono] = useState('');

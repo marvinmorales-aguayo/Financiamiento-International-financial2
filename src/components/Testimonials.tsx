@@ -119,7 +119,7 @@ export default function Testimonials({ onNavigateToForm }: TestimonialsProps) {
             Casos de Éxito
           </span>
           <h2 className="text-3xl lg:text-[32px] font-extrabold text-white tracking-tight uppercase">
-            Escucha lo que dicen todos
+            Respaldados por nuestros clientes
           </h2>
           <div className="w-16 h-[2.5px] bg-[#EE7624] mx-auto mt-4" />
         </div>

@@ -3,81 +3,160 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
-import { Check } from 'lucide-react';
-import { motion } from 'motion/react';
+import React, { useState } from 'react';
+import { X, ChevronDown, ChevronUp, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
 interface BenefitsProps {
   onNavigateToForm: () => void;
 }
 
 export default function Benefits({ onNavigateToForm }: BenefitsProps) {
-  const checklistItems = [
-    'Posibilidad de pagos flexibles/diferentes',
-    'Sin restricciones de kilometraje',
-    'Ser dueños del equipo al final del plazo a un valor específico',
-    'Pagos mensuales menores',
-    'Opción de tasa de Interés Variable',
-    'Agregar Servicios de Valor Agregado',
-    'Sustituir camiones en cortos plazos',
-  ];
+  const [isVisible, setIsVisible] = useState(true);
+  const [showTerms, setShowTerms] = useState(false);
+
+  if (!isVisible) return null;
 
   return (
-    <section
-      id="beneficios"
-      className="bg-[#F8F8F8] py-16 md:py-24 border-y border-[#DDDDDD]"
-    >
-      <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 flex flex-col md:flex-row items-start justify-between gap-12 md:gap-8">
-        
-        {/* Left Column (40%) */}
-        <div id="benefits-left-col" className="w-full md:w-[40%] flex flex-col">
-          <span className="text-[13px] font-semibold text-gray-500 tracking-widest uppercase mb-2">
-            Soluciones Financieras
-          </span>
-          <h2 className="text-4xl lg:text-[42px] leading-tight font-extrabold text-[#000000] tracking-tight uppercase">
-            Flexibles
-          </h2>
-          <div className="w-16 h-[2px] bg-[#272623] mt-5 mb-6" />
-          <p className="text-gray-600 text-sm md:text-base leading-relaxed">
-            Nuestros esquemas de financiamiento están diseñados para adaptarse a los ciclos de ingresos de tu flota. Entendemos el sector de autotransporte de carga y pasajeros en México como ningún otro intermediario financiero.
-          </p>
-        </div>
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, height: 0 }}
+        transition={{ duration: 0.3 }}
+        id="cintilla-plan-tasas"
+        className="w-full bg-[#12110f] border-y border-neutral-800 text-white relative z-20 shadow-lg"
+      >
+        <div className="w-full max-w-[1400px] mx-auto px-4 py-4 md:py-3.5 sm:px-6 md:px-8">
+          
+          {/* Main Container: Flex on block level */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 lg:gap-6">
+            
+            {/* Header / Intro: Left block and info */}
+            <div className="flex items-center gap-3 shrink-0">
+              <span className="flex h-2.5 w-2.5 relative shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#EE7624] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#EE7624]"></span>
+              </span>
+              <div>
+                <span className="text-[#EE7624] text-[10px] font-black uppercase tracking-widest block">
+                  Planes de Arrendamiento Financiero
+                </span>
+                <h3 className="text-white text-xs font-bold uppercase tracking-wider mt-0.5">
+                  Tasas Actualizadas Traton Financial
+                </h3>
+              </div>
+            </div>
 
-        {/* Right Column (60%) */}
-        <div id="benefits-right-col" className="w-full md:w-[55%] flex flex-col">
-          <ul id="benefits-checklist" className="space-y-4">
-            {checklistItems.map((item, index) => (
-              <motion.li
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="flex items-start gap-4 p-3 bg-white hover:bg-neutral-50 rounded-[4px] border border-gray-100 transition-colors shadow-xs"
+            {/* Plans List: Custom layout that adjusts perfectly on mobile to avoid breaking */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-6 flex-1 max-w-3xl">
+              
+              {/* Plan A block */}
+              <div className="bg-[#1A1916] rounded border border-neutral-800/80 p-2.5 sm:p-3 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="bg-[#EE7624] text-white text-[9px] font-black px-1.5 py-0.5 rounded-sm uppercase tracking-wider shrink-0">
+                      Plan A
+                    </span>
+                    <span className="text-neutral-300 font-bold text-[10px] uppercase tracking-wider truncate">
+                      Gracia en Capital
+                    </span>
+                  </div>
+                  <p className="text-white font-extrabold text-xs tracking-tight">
+                    Hasta 60 Meses: <span className="text-[#EE7624] font-black">9.80%</span>
+                  </p>
+                  <p className="text-[10px] text-neutral-400 font-medium">
+                    (3 meses de gracia en capital al inicio)
+                  </p>
+                </div>
+              </div>
+
+              {/* Plan B block */}
+              <div className="bg-[#1A1916] rounded border border-neutral-800/80 p-2.5 sm:p-3 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <span className="bg-[#EE7624] text-white text-[9px] font-black px-1.5 py-0.5 rounded-sm uppercase tracking-wider shrink-0">
+                      Plan B
+                    </span>
+                    <span className="text-neutral-300 font-bold text-[10px] uppercase tracking-wider truncate">
+                      Gracia en Total
+                    </span>
+                  </div>
+                  <p className="text-white font-extrabold text-xs tracking-tight">
+                    Hasta 60 Meses: <span className="text-[#EE7624] font-black">10.75%</span>
+                  </p>
+                  <p className="text-[10px] text-neutral-400 font-medium">
+                    (3 meses de gracia total al inicio)
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            {/* CTAs & Close Button Column */}
+            <div className="flex flex-row items-center justify-between sm:justify-end gap-3 md:gap-4 border-t border-neutral-800 pt-3 lg:border-t-0 lg:pt-0 shrink-0">
+              
+              <button
+                onClick={() => setShowTerms(!showTerms)}
+                className="text-[10px] text-neutral-400 hover:text-white uppercase tracking-wider font-extrabold underline cursor-pointer transition-colors py-1 shrink-0"
               >
-                {/* Custom check marker style matching brand colors */}
-                <span className="w-6 h-6 rounded-full bg-[#272623] flex items-center justify-center text-white shrink-0 mt-0.5">
-                  <Check size={14} className="stroke-[3]" />
-                </span>
-                <span className="text-sm md:text-base font-medium text-gray-800 leading-normal">
-                  {item}
-                </span>
-              </motion.li>
-            ))}
-          </ul>
+                Términos (*)
+              </button>
 
-          <div className="mt-10">
-            <button
-              id="benefits-cta-btn"
-              onClick={onNavigateToForm}
-              className="bg-[#272623] hover:bg-[#1a1a1a] text-white text-xs md:text-sm font-bold px-8 py-4 rounded-[4px] tracking-wide uppercase transition-all shadow-md active:scale-[0.99] inline-block text-center cursor-pointer"
-            >
-              Solicitar Cotización
-            </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={onNavigateToForm}
+                  className="bg-[#EE7624] hover:bg-[#d66216] text-white font-extrabold text-[10px] uppercase tracking-wider px-4 py-2 rounded-sm shadow-md hover:shadow-lg transition-all cursor-pointer flex items-center gap-1.5 shrink-0"
+                >
+                  <span>Cotizar Plan</span>
+                  <ArrowRight size={11} className="stroke-[2.5]" />
+                </button>
+
+                {/* Dismiss banner icon button */}
+                <button
+                  onClick={() => setIsVisible(false)}
+                  className="text-neutral-500 hover:text-neutral-300 transition-colors p-1.5 cursor-pointer shrink-0"
+                  aria-label="Cerrar aviso"
+                >
+                  <X size={15} />
+                </button>
+              </div>
+
+            </div>
+
           </div>
+
         </div>
 
-      </div>
-    </section>
+        {/* Dropped micro details for Terms and conditions */}
+        <AnimatePresence>
+          {showTerms && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="bg-[#0e0d0c] border-t border-neutral-800/80 overflow-hidden"
+            >
+              <div className="max-w-[1400px] mx-auto px-4 py-4 sm:px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-4 text-[9px] text-neutral-400 leading-relaxed font-normal">
+                <div className="bg-[#12110f] p-3 rounded border border-white/5">
+                  <h4 className="font-extrabold text-white uppercase tracking-widest mb-1 text-[#EE7624]">
+                    Plan A (Gracia de Capital)
+                  </h4>
+                  <p className="mb-1 text-neutral-300 font-semibold">Tasa 36m: 7.80% | 48m: 8.80% | 60m: 9.80%</p>
+                  <p>3 meses de gracia en capital al inicio. Vigencia al 30 de Junio del 2026. Promoción válida en contratos de 36, 48 y 60 meses. Sujeta a aprobación de crédito por Traton Financial Services México, S.A. de C.V., SOFOM E.R.</p>
+                </div>
+                <div className="bg-[#12110f] p-3 rounded border border-white/5">
+                  <h4 className="font-extrabold text-white uppercase tracking-widest mb-1 text-[#EE7624]">
+                    Plan B (Gracia Total)
+                  </h4>
+                  <p className="mb-1 text-neutral-300 font-semibold">Tasa 36m: 9.75% | 48m: 10.25% | 60m: 10.75%</p>
+                  <p>3 meses de gracia total al inicio del arrendamiento. Vigencia al 30 de Junio del 2026. Promoción válida en contratos de 36, 48 y 60 meses. Sujeta a aprobación de crédito por Traton Financial Services México.</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </AnimatePresence>
   );
 }
