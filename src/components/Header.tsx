@@ -13,12 +13,7 @@ interface HeaderProps {
 export default function Header({ onNavigateToForm }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navLinks = [
-    { label: 'Beneficios', href: '#beneficios' },
-    { label: 'Soluciones', href: '#soluciones' },
-    { label: 'Testimonios', href: '#testimonios' },
-    { label: 'Por qué nosotros', href: '#aliados' },
-  ];
+  const navLinks: { label: string; href: string }[] = [];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -75,59 +70,17 @@ export default function Header({ onNavigateToForm }: HeaderProps) {
           ))}
         </nav>
 
-        {/* Desktop CTA Button */}
-        <div className="hidden md:flex items-center">
+        {/* Header CTA Button */}
+        <div className="flex items-center">
           <button
             id="header-cta-btn"
             onClick={onNavigateToForm}
-            className="bg-[#272623] hover:bg-[#1a1a1a] text-white text-xs font-semibold px-6 py-3 rounded-[4px] tracking-wide uppercase transition-all shadow-xs active:scale-98 cursor-pointer"
+            className="bg-[#272623] hover:bg-[#1a1a1a] text-white text-[10px] sm:text-xs font-semibold px-4 py-2.5 sm:px-6 sm:py-3 rounded-sm tracking-wide uppercase transition-colors cursor-pointer"
           >
             Solicitar Cotización
           </button>
         </div>
-
-        {/* Mobile Hamburger Button */}
-        <button
-          id="mobile-menu-toggle"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden flex items-center justify-center w-11 h-11 text-[#272623] rounded-md hover:bg-gray-100 transition-colors cursor-pointer"
-          aria-expanded={mobileMenuOpen}
-          aria-label="Abrir menú de navegación"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
-
-      {/* Mobile Drawer Navigation menu */}
-      {mobileMenuOpen && (
-        <div
-          id="mobile-drawer"
-          className="absolute top-[70px] left-0 w-full bg-white border-b border-[#DDDDDD] shadow-lg md:hidden animate-fade-in z-30"
-        >
-          <div className="flex flex-col p-6 space-y-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href)}
-                className="text-base font-semibold text-gray-800 hover:text-black py-2.5 border-b border-gray-100 transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            <button
-              id="mobile-drawer-cta-btn"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onNavigateToForm();
-              }}
-              className="w-full bg-[#272623] hover:bg-[#1a1a1a] text-white text-sm font-bold py-3.5 px-6 rounded-md tracking-wide uppercase text-center mt-2 cursor-pointer transition-all active:scale-98"
-            >
-              Solicitar Cotización
-            </button>
-          </div>
-        </div>
-      )}
     </header>
   );
 }
