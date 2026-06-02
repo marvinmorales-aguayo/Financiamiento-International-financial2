@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { motion } from 'motion/react';
 import { Gauge, ShieldAlert, MapPin } from 'lucide-react';
 import { AdvantageCard, VehicleType } from '../types';
 
@@ -67,13 +66,9 @@ export default function Partners({ onNavigateToForm }: PartnersProps) {
         {/* 3-Column Advantage Cards Grid */}
         <div id="aliados-grid" className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {cards.map((card, index) => (
-            <motion.div
+            <div
               key={card.id}
-              initial={{ opacity: 0, scale: 0.96, y: 20 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              className={`p-8 rounded-lg border flex flex-col justify-between transition-all hover:-translate-y-1 hover:shadow-md ${card.bgColor}`}
+              className={`p-8 rounded-lg border flex flex-col justify-between ${card.bgColor}`}
             >
               <div>
                 {/* Header visual icon inside cards */}
@@ -104,7 +99,7 @@ export default function Partners({ onNavigateToForm }: PartnersProps) {
                   {card.buttonText}
                 </button>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
 
@@ -116,7 +111,7 @@ export default function Partners({ onNavigateToForm }: PartnersProps) {
           <button
             id="aliados-cta-global"
             onClick={() => onNavigateToForm()}
-            className="bg-[#272623] hover:bg-[#1a1a1a] text-white text-xs md:text-sm font-bold px-10 py-4 rounded-[4px] tracking-wide uppercase transition-all shadow-md hover:shadow-lg active:scale-[0.99] cursor-pointer"
+            className="bg-[#272623] hover:bg-[#1a1a1a] text-white text-xs md:text-sm font-bold px-10 py-4 rounded-sm tracking-wide uppercase transition-colors cursor-pointer"
           >
             Solicitar Cotización General
           </button>

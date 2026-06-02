@@ -8,6 +8,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import Benefits from './components/Benefits';
 import FinancialSolutions from './components/FinancialSolutions';
+import LtTrucks from './components/LtTrucks';
 import Testimonials from './components/Testimonials';
 import Partners from './components/Partners';
 import FinalCTA from './components/FinalCTA';
@@ -62,6 +63,9 @@ export default function App() {
 
         {/* 3. Sticky Financial Solutions Section */}
         <FinancialSolutions onNavigateToForm={(vehicle) => handleNavigateToForm(vehicle || '')} />
+
+        {/* 3.5. Tractocamiones LT Showcase Section */}
+        <LtTrucks onNavigateToForm={(vehicle) => handleNavigateToForm(vehicle || '')} />
 
         {/* 4. Automated & Controlled Testimonials Carousel */}
         <Testimonials onNavigateToForm={() => handleNavigateToForm('')} />

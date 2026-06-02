@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
 import { CheckCircle } from 'lucide-react';
 import { FormData, FormErrors, VehicleType } from '../types';
 
@@ -188,10 +187,9 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
   return (
     <section
       id="hero"
-      className="relative w-full min-h-screen lg:min-h-[calc(100vh-70px)] bg-cover bg-center overflow-hidden flex items-center py-12 lg:py-0"
+      className="relative w-full min-h-screen lg:min-h-[calc(100vh-70px)] bg-cover bg-center overflow-hidden flex items-center py-12 lg:py-0 bg-neutral-900"
       style={{
         backgroundImage: `url("https://www.camionesinternational.com/documents/157231/173643/banner_21-9_Financiamiento_IF.jpg/9be4e3cb-cbe4-4cb4-75de-5961aab3e771?version=1.0&t=1768956015363")`,
-        backgroundAttachment: 'fixed',
       }}
     >
       {/* Dark overlay for perfect contrast */}
@@ -212,7 +210,7 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
           </h1>
 
           <p className="text-gray-200 text-sm sm:text-base leading-relaxed font-light">
-            Soluciones financieras para camiones, tractocamiones y autobuses International® con atención ágil y servicios diseñados para impulsar tu operación.
+            Soluciones financieras para camiones, tractocamiones y autobuses International con atención ágil y servicios diseñados para impulsar tu operación.
           </p>
         </div>
 
@@ -222,15 +220,8 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
             id="lead-form-container"
             className="w-full bg-white rounded-lg p-6 sm:p-8 lg:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.5)] border border-neutral-100"
           >
-            <AnimatePresence mode="wait">
               {!isSubmitted ? (
-                <motion.div
-                  key="lead-form-content"
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.3 }}
-                >
+                <div id="lead-form-content">
                   <h3 className="text-xl font-extrabold text-[#272623] tracking-tight uppercase mb-1">
                     Solicitar Cotización
                   </h3>
@@ -409,12 +400,10 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
                       )}
                     </button>
                   </form>
-                </motion.div>
+                </div>
               ) : (
-                <motion.div
-                  key="success-message"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                <div
+                  id="success-message"
                   className="flex flex-col items-center justify-center py-6 text-center"
                 >
                   <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-600 mb-5">
@@ -433,9 +422,8 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
                   >
                     Nueva Solicitud
                   </button>
-                </motion.div>
+                </div>
               )}
-            </AnimatePresence>
           </div>
         </div>
 
