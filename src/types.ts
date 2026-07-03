@@ -23,6 +23,7 @@ export interface FormData {
   email: string;
   whatsapp: string;
   tipoVehiculo: VehicleType | '';
+  tipoFinanciamiento: string;
   estado: string;
   autorizaContacto: boolean;
 }
@@ -32,6 +33,7 @@ export interface FormErrors {
   email?: string;
   whatsapp?: string;
   tipoVehiculo?: string;
+  tipoFinanciamiento?: string;
   estado?: string;
   autorizaContacto?: string;
 }

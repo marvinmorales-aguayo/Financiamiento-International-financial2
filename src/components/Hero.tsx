@@ -10,6 +10,8 @@ import { FormData, FormErrors, VehicleType } from '../types';
 interface HeroProps {
   selectedVehicle: VehicleType | '';
   setSelectedVehicle: (vehicle: VehicleType | '') => void;
+  selectedFinancing: string;
+  setSelectedFinancing: (financing: string) => void;
 }
 
 const ESTADOS_MEXICO = [
@@ -47,12 +49,18 @@ const ESTADOS_MEXICO = [
   "Zacatecas"
 ];
 
-export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps) {
+export default function Hero({
+  selectedVehicle,
+  setSelectedVehicle,
+  selectedFinancing,
+  setSelectedFinancing
+}: HeroProps) {
   const [formData, setFormData] = useState<FormData>({
     nombre: '',
     email: '',
     whatsapp: '',
     tipoVehiculo: '',
+    tipoFinanciamiento: '',
     estado: '',
     autorizaContacto: false,
   });
@@ -70,6 +78,16 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
       }));
     }
   }, [selectedVehicle]);
+
+  // Sync selected financing when triggered from another page button
+  useEffect(() => {
+    if (selectedFinancing) {
+      setFormData((prev) => ({
+        ...prev,
+        tipoFinanciamiento: selectedFinancing,
+      }));
+    }
+  }, [selectedFinancing]);
 
   const validateField = (name: keyof FormData, value: any): string => {
     switch (name) {
@@ -89,6 +107,9 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
         return '';
       case 'tipoVehiculo':
         if (!value) return 'Selecciona un tipo de vehículo.';
+        return '';
+      case 'tipoFinanciamiento':
+        if (!value) return 'Selecciona un tipo de financiamiento.';
         return '';
       case 'estado':
         if (!value) return 'Selecciona el estado donde se ubica tu empresa.';
@@ -128,6 +149,8 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
 
     if (name === 'tipoVehiculo') {
       setSelectedVehicle(finalValue as VehicleType);
+    } else if (name === 'tipoFinanciamiento') {
+      setSelectedFinancing(finalValue);
     }
   };
 
@@ -176,12 +199,14 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
       email: '',
       whatsapp: '',
       tipoVehiculo: '',
+      tipoFinanciamiento: '',
       estado: '',
       autorizaContacto: false,
     });
     setErrors({});
     setIsSubmitted(false);
     setSelectedVehicle('');
+    setSelectedFinancing('');
   };
 
   return (
@@ -332,6 +357,34 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
                       )}
                     </div>
 
+                    {/* Tipo de Financiamiento */}
+                    <div className="flex flex-col">
+                      <label htmlFor="tipoFinanciamiento" className="text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">
+                        Tipo de Financiamiento *
+                      </label>
+                      <select
+                        id="tipoFinanciamiento"
+                        name="tipoFinanciamiento"
+                        value={formData.tipoFinanciamiento}
+                        onChange={handleChange}
+                        className={`px-3.5 py-2.5 border rounded-sm bg-white text-xs transition-all focus:outline-hidden focus:ring-1 ${
+                          errors.tipoFinanciamiento
+                            ? 'border-red-500 focus:border-red-500 focus:ring-red-500 bg-red-50/10'
+                            : 'border-gray-300 focus:border-black focus:ring-black'
+                        }`}
+                      >
+                        <option value="">Selecciona tipo de financiamiento</option>
+                        <option value="Programa Especial de Renovación de Flota">Programa Especial de Renovación de Flota</option>
+                        <option value="Crédito">Crédito</option>
+                        <option value="Arrendamiento Puro">Arrendamiento Puro</option>
+                        <option value="Arrendamiento Financiero">Arrendamiento Financiero</option>
+                        <option value="Seminuevos Certificados">Seminuevos Certificados</option>
+                      </select>
+                      {errors.tipoFinanciamiento && (
+                        <span className="text-red-500 text-[11px] mt-1 font-medium">{errors.tipoFinanciamiento}</span>
+                      )}
+                    </div>
+
                     {/* Estado de México */}
                     <div className="flex flex-col">
                       <label htmlFor="estado" className="text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">
@@ -413,7 +466,7 @@ export default function Hero({ selectedVehicle, setSelectedVehicle }: HeroProps)
                     ¡Gracias {formData.nombre}!
                   </h3>
                   <p className="text-gray-500 text-xs leading-relaxed max-w-xs mb-8">
-                    Pronto nos pondremos en contacto contigo. Tu solicitud para <span className="font-semibold text-gray-800">{formData.tipoVehiculo}</span> ha sido registrada de forma segura.
+                    Pronto nos pondremos en contacto contigo. Tu solicitud de <span className="font-semibold text-gray-800">{formData.tipoFinanciamiento}</span> para <span className="font-semibold text-gray-800">{formData.tipoVehiculo || 'tu unidad'}</span> ha sido registrada de forma segura.
                   </p>
                   <button
                     id="success-new-request-btn"

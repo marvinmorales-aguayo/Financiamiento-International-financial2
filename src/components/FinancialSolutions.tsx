@@ -8,7 +8,7 @@ import { FileText, Award, Layers, Sparkles, Check } from 'lucide-react';
 import { FinancialSolution, VehicleType } from '../types';
 
 interface FinancialSolutionsProps {
-  onNavigateToForm: (vehicleType?: VehicleType) => void;
+  onNavigateToForm: (vehicleType?: VehicleType, financingType?: string) => void;
 }
 
 export default function FinancialSolutions({ onNavigateToForm }: FinancialSolutionsProps) {
@@ -37,7 +37,7 @@ export default function FinancialSolutions({ onNavigateToForm }: FinancialSoluti
       id: 'arrendamiento-financiero',
       title: 'Arrendamiento Financiero',
       icon: Award,
-      description: 'Ser dueños del equipo al final del plazo a un valor específico predeterminado. Excelente combinación de los beneficios del crédito y el arrendamiento.',
+      description: 'Ser dueños del equipo al final del plazo a un valor específico predeterminado. Excelente combinación de los beneficios del crédito and el arrendamiento.',
       features: ['Ser dueño al final', 'Pagos predecibles', 'Valor residual garantizado'],
       btnText: 'Conocer Arrendamiento Financiero',
       mappedVehicle: 'Camiones Severos HV' as VehicleType,
@@ -129,7 +129,7 @@ export default function FinancialSolutions({ onNavigateToForm }: FinancialSoluti
               <div className="mt-4 pt-4 border-t border-neutral-100">
                 <button
                   id={`btn-conocer-${sol.id}`}
-                  onClick={() => onNavigateToForm(sol.mappedVehicle)}
+                  onClick={() => onNavigateToForm(sol.mappedVehicle, sol.title)}
                   className="w-full bg-[#EE7624] hover:bg-[#d66216] text-white font-bold text-xs tracking-wider uppercase py-3 rounded-sm transition-colors cursor-pointer text-center"
                 >
                   Conocer Más

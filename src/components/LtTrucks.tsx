@@ -8,7 +8,7 @@ import { Check, FileText, ArrowRight } from 'lucide-react';
 import { VehicleType } from '../types';
 
 interface LtTrucksProps {
-  onNavigateToForm: (vehicleType?: VehicleType) => void;
+  onNavigateToForm: (vehicleType?: VehicleType, financingType?: string) => void;
 }
 
 export default function LtTrucks({ onNavigateToForm }: LtTrucksProps) {

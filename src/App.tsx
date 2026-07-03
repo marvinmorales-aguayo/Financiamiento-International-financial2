@@ -6,9 +6,10 @@
 import { useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import Benefits from './components/Benefits';
+import RenovationTeaser from './components/RenovationTeaser';
 import FinancialSolutions from './components/FinancialSolutions';
 import LtTrucks from './components/LtTrucks';
+import FleetRenovation from './components/FleetRenovation';
 import Testimonials from './components/Testimonials';
 import Partners from './components/Partners';
 import FinalCTA from './components/FinalCTA';
@@ -18,9 +19,11 @@ import { VehicleType } from './types';
 
 export default function App() {
   const [selectedVehicle, setSelectedVehicle] = useState<VehicleType | ''>('');
+  const [selectedFinancing, setSelectedFinancing] = useState<string>('');
 
-  const handleNavigateToForm = (vehicleType: VehicleType | '' = '') => {
+  const handleNavigateToForm = (vehicleType: VehicleType | '' = '', financingType: string = '') => {
     setSelectedVehicle(vehicleType);
+    setSelectedFinancing(financingType);
     
     // Smooth scroll directly to the hero section or to the lead-form container
     const element = document.getElementById('hero');
@@ -56,16 +59,21 @@ export default function App() {
         <Hero
           selectedVehicle={selectedVehicle}
           setSelectedVehicle={setSelectedVehicle}
+          selectedFinancing={selectedFinancing}
+          setSelectedFinancing={setSelectedFinancing}
         />
 
-        {/* 2. Checklist Benefits Section */}
-        <Benefits onNavigateToForm={() => handleNavigateToForm('')} />
+        {/* 1.5. Subtle Fleet Renovation Hook Teaser */}
+        <RenovationTeaser onNavigateToForm={(vehicle, financing) => handleNavigateToForm(vehicle || '', financing || '')} />
 
         {/* 3. Sticky Financial Solutions Section */}
-        <FinancialSolutions onNavigateToForm={(vehicle) => handleNavigateToForm(vehicle || '')} />
+        <FinancialSolutions onNavigateToForm={(vehicle, financing) => handleNavigateToForm(vehicle || '', financing || '')} />
 
         {/* 3.5. Tractocamiones LT Showcase Section */}
-        <LtTrucks onNavigateToForm={(vehicle) => handleNavigateToForm(vehicle || '')} />
+        <LtTrucks onNavigateToForm={(vehicle, financing) => handleNavigateToForm(vehicle || '', financing || '')} />
+
+        {/* 3.6. Fleet Renovation Program Section */}
+        <FleetRenovation onNavigateToForm={(vehicle, financing) => handleNavigateToForm(vehicle || '', financing || '')} />
 
         {/* 4. Automated & Controlled Testimonials Carousel */}
         <Testimonials onNavigateToForm={() => handleNavigateToForm('')} />
